@@ -111,14 +111,15 @@ export default function MisPublicaciones() {
       {/* Modal editar */}
       {editando && (
         <div style={{
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)',
+          position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.45)',
           display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
           zIndex: 200, padding: '0 0 0 0',
         }} onClick={e => e.target === e.currentTarget && setEditando(null)}>
           <div style={{
-            background: 'var(--bg-secondary)', borderRadius: '20px 20px 0 0',
+            background: '#FFFFFF', borderRadius: '20px 20px 0 0',
             padding: 24, width: '100%', maxWidth: 480,
-            border: '1px solid var(--border)', borderBottom: 'none',
+            border: '1px solid #E2E8F0', borderBottom: 'none',
+            boxShadow: '0 -8px 32px rgba(15,23,42,0.08)',
           }}>
             <h2 style={{ marginBottom: 20, fontSize: 18 }}>Editar publicación</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>

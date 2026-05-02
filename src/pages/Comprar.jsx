@@ -130,9 +130,10 @@ export default function Comprar() {
 
       <div style={{ padding: '24px 20px', maxWidth: 480, margin: '0 auto' }}>
         <button onClick={() => navigate(-1)} style={{
-          background: 'rgba(255,255,255,0.06)', border: '1px solid var(--border)',
-          color: 'var(--text-primary)', borderRadius: 10, padding: '6px 14px',
+          background: '#FFFFFF', border: '1px solid #E2E8F0',
+          color: '#0F172A', borderRadius: 10, padding: '6px 14px',
           fontSize: 13, cursor: 'pointer', marginBottom: 24,
+          boxShadow: '0 1px 4px rgba(15,23,42,0.06)',
         }}>← Volver</button>
 
         <h1 style={{ fontSize: 26, fontFamily: 'Syne, sans-serif', marginBottom: 4 }}>

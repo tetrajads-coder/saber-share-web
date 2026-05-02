@@ -35,41 +35,38 @@ export default function Registro() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'var(--bg-primary)',
+      background: '#F8FAFC',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 20, position: 'relative', overflow: 'hidden',
     }}>
-      {/* Glows */}
-      <div style={{ position:'absolute', top:-80, right:-80, width:300, height:300, borderRadius:'50%', background:'radial-gradient(circle, rgba(163,230,53,0.07) 0%, transparent 70%)', pointerEvents:'none' }} />
-      <div style={{ position:'absolute', bottom:-80, left:-80, width:300, height:300, borderRadius:'50%', background:'radial-gradient(circle, rgba(46,112,255,0.07) 0%, transparent 70%)', pointerEvents:'none' }} />
+      <div style={{ position:'absolute', top:-80, right:-80, width:300, height:300, borderRadius:'50%', background:'radial-gradient(circle, rgba(101,163,13,0.05) 0%, transparent 70%)', pointerEvents:'none' }} />
+      <div style={{ position:'absolute', bottom:-80, left:-80, width:300, height:300, borderRadius:'50%', background:'radial-gradient(circle, rgba(46,112,255,0.05) 0%, transparent 70%)', pointerEvents:'none' }} />
 
       <div style={{ width:'100%', maxWidth:420, position:'relative' }}>
 
         {/* Logo */}
         <div style={{ textAlign:'center', marginBottom:32 }}>
-          <div style={{
-            width:56, height:56, borderRadius:16, margin:'0 auto 14px',
-            background:'linear-gradient(135deg, var(--accent) 0%, var(--accent-blue) 100%)',
-            display:'flex', alignItems:'center', justifyContent:'center', fontSize:24,
-            boxShadow:'0 0 24px rgba(163,230,53,0.25)',
-          }}>🎓</div>
+          <img
+            src="/src/assets/logo_sabershare.png"
+            alt="SaberShare"
+            style={{ width: '140px', marginBottom: '24px' }}
+          />
           <h1 style={{ fontSize:32, fontFamily:'Syne, sans-serif', marginBottom:6 }}>
-            <span style={{ background:'linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.7) 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>Saber</span>
-            <span style={{ background:'linear-gradient(90deg, var(--accent) 0%, #84cc16 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>Share</span>
+            <span style={{ color: '#2E70FF' }}>Saber</span>
+            <span style={{ color: '#65A30D' }}>Share</span>
           </h1>
-          <p style={{ color:'var(--text-tertiary)', fontSize:13 }}>Crea tu cuenta y empieza a aprender</p>
+          <p style={{ color:'#94A3B8', fontSize:13 }}>Crea tu cuenta y empieza a aprender</p>
         </div>
 
         {/* Card */}
         <div style={{
-          background:'linear-gradient(135deg, var(--bg-card) 0%, rgba(163,230,53,0.03) 100%)',
-          border:'1px solid var(--border)', borderRadius:24, padding:28,
-          boxShadow:'0 24px 64px rgba(0,0,0,0.4)',
+          background:'#FFFFFF',
+          border:'1px solid #E2E8F0',
+          borderRadius:24, padding:28,
+          boxShadow:'0 8px 32px rgba(15,23,42,0.08)',
         }}>
-          <h2 style={{ fontSize:18, fontFamily:'Syne, sans-serif', marginBottom:4 }}>Crear cuenta</h2>
-          <p style={{ color:'var(--text-tertiary)', fontSize:12, marginBottom:20 }}>
-            * Campos obligatorios
-          </p>
+          <h2 style={{ fontSize:18, fontFamily:'Syne, sans-serif', marginBottom:4, color:'#0F172A' }}>Crear cuenta</h2>
+          <p style={{ color:'#94A3B8', fontSize:12, marginBottom:20 }}>* Campos obligatorios</p>
 
           <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:12 }}>
             {campos.map(c => (
@@ -91,9 +88,9 @@ export default function Registro() {
 
             {error && (
               <div style={{
-                background:'rgba(239,68,68,0.1)', border:'1px solid rgba(239,68,68,0.25)',
+                background:'rgba(239,68,68,0.06)', border:'1px solid rgba(239,68,68,0.2)',
                 borderRadius:10, padding:'10px 14px',
-                color:'var(--error)', fontSize:13, display:'flex', alignItems:'center', gap:8,
+                color:'#ef4444', fontSize:13, display:'flex', alignItems:'center', gap:8,
               }}>⚠️ {error}</div>
             )}
 
@@ -101,11 +98,11 @@ export default function Registro() {
               style={{
                 marginTop:6, height:50, borderRadius:14, border:'none',
                 background: loading
-                  ? 'var(--bg-card)'
-                  : 'linear-gradient(135deg, var(--accent) 0%, #84cc16 100%)',
-                color: '#0a0a0d', fontWeight:700, fontSize:14,
+                  ? '#F1F5F9'
+                  : 'linear-gradient(135deg, #65A30D 0%, #4D7C0F 100%)',
+                color: loading ? '#94A3B8' : '#fff', fontWeight:700, fontSize:14,
                 cursor: loading ? 'not-allowed' : 'pointer',
-                boxShadow: loading ? 'none' : '0 8px 24px rgba(163,230,53,0.25)',
+                boxShadow: loading ? 'none' : '0 8px 24px rgba(101,163,13,0.22)',
                 transition:'all 0.2s',
                 display:'flex', alignItems:'center', justifyContent:'center', gap:8,
               }}>
@@ -114,9 +111,9 @@ export default function Registro() {
           </form>
         </div>
 
-        <p style={{ textAlign:'center', marginTop:20, color:'var(--text-tertiary)', fontSize:14 }}>
+        <p style={{ textAlign:'center', marginTop:20, color:'#94A3B8', fontSize:14 }}>
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" style={{ color:'var(--accent-blue)', fontWeight:700 }}>
+          <Link to="/login" style={{ color:'#2E70FF', fontWeight:700 }}>
             Iniciar sesión →
           </Link>
         </p>

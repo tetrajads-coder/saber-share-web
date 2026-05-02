@@ -8,12 +8,14 @@ export function AuthProvider({ children }) {
     return saved ? JSON.parse(saved) : null;
   });
 
-  const login = (userData) => {
+  const login = (token, userData) => {
+    localStorage.setItem('ss_token', token);
     localStorage.setItem('ss_usuario', JSON.stringify(userData));
     setUsuario(userData);
   };
 
   const logout = () => {
+    localStorage.removeItem('ss_token');
     localStorage.removeItem('ss_usuario');
     setUsuario(null);
   };

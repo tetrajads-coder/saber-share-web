@@ -1,6 +1,14 @@
 import axios from 'axios';
 const api = axios.create({ baseURL: '/api', timeout: 10000 });
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('ss_token');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 export default api;
+export const loginAuth = (correo, password) => api.post('/auth/login', { correo, password });
 export const loginUsuario = (u) => api.get(`/usuario?user=${u}`);
 export const registrarUsuario = (d) => api.post('/usuario', d);
 export const getCursos = () => api.get('/curso');
@@ -26,3 +34,5 @@ export const crearCurso = (d) => api.post('/curso', d);
 export const actualizarCurso = (id, d) => api.put(`/curso/${id}`, d);
 export const crearServicio = (d) => api.post('/servicio', d);
 export const actualizarServicio = (id, d) => api.put(`/servicio/${id}`, d);
+export const recuperarPassword = (correo) => api.post('/auth/recuperar', { correo });
+export const resetPassword = (token, nuevaPassword) => api.post('/auth/reset-password', { token, nuevaPassword });

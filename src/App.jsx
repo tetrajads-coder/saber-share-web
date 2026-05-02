@@ -2,6 +2,8 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import Login from './pages/Login'
 import Registro from './pages/Registro'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import Inicio from './pages/Inicio'
 import Detalle from './pages/Detalle'
 import Comprar from './pages/Comprar'
@@ -34,8 +36,10 @@ export default function App() {
     <>
       {usuario && <Navbar />}
       <Routes>
-        <Route path="/login"    element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
+        <Route path="/login"           element={<Login />} />
+        <Route path="/registro"        element={<Registro />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password"  element={<ResetPassword />} />
         <Route path="/" element={<PrivateRoute><Inicio /></PrivateRoute>} />
         <Route path="/detalle/:tipo/:id" element={<PrivateRoute><Detalle /></PrivateRoute>} />
         <Route path="/comprar/:tipo/:id" element={<PrivateRoute><Comprar /></PrivateRoute>} />

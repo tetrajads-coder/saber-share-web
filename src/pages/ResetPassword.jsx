@@ -1,28 +1,58 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import { loginAuth } from '../api/api'
+import { useNavigate, useSearchParams, Link } from 'react-router-dom'
+import { resetPassword } from '../api/api'
 
-export default function Login() {
-  const [correo, setCorreo]     = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError]       = useState('')
-  const [loading, setLoading]   = useState(false)
-  const { login } = useAuth()
-  const navigate  = useNavigate()
+export default function ResetPassword() {
+  const [searchParams]          = useSearchParams()
+  const token                   = searchParams.get('token')
+  const [nuevaPassword, setNuevaPassword] = useState('')
+  const [confirmar, setConfirmar]         = useState('')
+  const [loading, setLoading]             = useState(false)
+  const [error, setError]                 = useState('')
+  const navigate                          = useNavigate()
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!correo || !password) { setError('Completa todos los campos'); return }
+    if (!nuevaPassword || !confirmar) { setError('Completa todos los campos'); return }
+    if (nuevaPassword.length < 6)    { setError('La contraseña debe tener al menos 6 caracteres'); return }
+    if (nuevaPassword !== confirmar)  { setError('Las contraseñas no coinciden'); return }
+    if (!token)                       { setError('Token inválido o expirado'); return }
     setLoading(true); setError('')
     try {
-      const res = await loginAuth(correo, password)
-      login(res.data.token, res.data.usuario)
-      navigate('/')
-    } catch (err) {
-      const msg = err.response?.data?.mensaje
-      setError(msg || 'Credenciales inválidas')
+      await resetPassword(token, nuevaPassword)
+      navigate('/login', { state: { mensaje: 'Contraseña actualizada. Inicia sesión.' } })
+    } catch {
+      setError('El enlace es inválido o ha expirado. Solicita uno nuevo.')
     } finally { setLoading(false) }
+  }
+
+  if (!token) {
+    return (
+      <div style={{
+        minHeight: '100vh', background: '#F8FAFC',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20,
+      }}>
+        <div style={{
+          background: '#fff', border: '1px solid #E2E8F0', borderRadius: 24, padding: 32,
+          boxShadow: '0 8px 32px rgba(15,23,42,0.08)', maxWidth: 420, width: '100%', textAlign: 'center',
+        }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
+          <h2 style={{ fontSize: 20, fontFamily: 'Syne, sans-serif', marginBottom: 10, color: '#0F172A' }}>
+            Enlace inválido
+          </h2>
+          <p style={{ color: '#64748B', fontSize: 14, marginBottom: 24 }}>
+            Este enlace de recuperación no es válido o ha expirado.
+          </p>
+          <Link to="/forgot-password" style={{
+            display: 'inline-block', padding: '12px 24px', borderRadius: 12,
+            background: 'linear-gradient(135deg, #2E70FF 0%, #5b9aff 100%)',
+            color: '#fff', fontWeight: 700, fontSize: 14, textDecoration: 'none',
+          }}>
+            Solicitar nuevo enlace
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -71,36 +101,16 @@ export default function Login() {
           boxShadow: '0 8px 32px rgba(15,23,42,0.08)',
         }}>
           <h2 style={{ fontSize: 20, fontFamily: 'Syne, sans-serif', marginBottom: 6, color: '#0F172A' }}>
-            Bienvenido de vuelta
+            Nueva contraseña
           </h2>
           <p style={{ color: '#94A3B8', fontSize: 13, marginBottom: 24 }}>
-            Ingresa tus credenciales para continuar
+            Elige una contraseña segura para tu cuenta
           </p>
 
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
               <label style={{ fontSize: 11, color: '#94A3B8', marginBottom: 6, display: 'block', fontWeight: 600, letterSpacing: '0.06em' }}>
-                CORREO
-              </label>
-              <div style={{ position: 'relative' }}>
-                <span style={{
-                  position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
-                  fontSize: 16, pointerEvents: 'none',
-                }}>👤</span>
-                <input
-                  type="email"
-                  placeholder="tu@correo.com"
-                  value={correo}
-                  onChange={e => setCorreo(e.target.value)}
-                  autoComplete="email"
-                  style={{ paddingLeft: 42 }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label style={{ fontSize: 11, color: '#94A3B8', marginBottom: 6, display: 'block', fontWeight: 600, letterSpacing: '0.06em' }}>
-                CONTRASEÑA
+                NUEVA CONTRASEÑA
               </label>
               <div style={{ position: 'relative' }}>
                 <span style={{
@@ -109,19 +119,33 @@ export default function Login() {
                 }}>🔒</span>
                 <input
                   type="password"
-                  placeholder="Tu contraseña"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  autoComplete="current-password"
+                  placeholder="Mínimo 6 caracteres"
+                  value={nuevaPassword}
+                  onChange={e => setNuevaPassword(e.target.value)}
+                  autoComplete="new-password"
                   style={{ paddingLeft: 42 }}
                 />
               </div>
             </div>
 
-            <div style={{ textAlign: 'right', marginTop: -4 }}>
-              <Link to="/forgot-password" style={{ color: '#2E70FF', fontSize: 13, textDecoration: 'none', fontWeight: 600 }}>
-                ¿Olvidaste tu contraseña?
-              </Link>
+            <div>
+              <label style={{ fontSize: 11, color: '#94A3B8', marginBottom: 6, display: 'block', fontWeight: 600, letterSpacing: '0.06em' }}>
+                CONFIRMAR CONTRASEÑA
+              </label>
+              <div style={{ position: 'relative' }}>
+                <span style={{
+                  position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
+                  fontSize: 16, pointerEvents: 'none',
+                }}>🔑</span>
+                <input
+                  type="password"
+                  placeholder="Repite la contraseña"
+                  value={confirmar}
+                  onChange={e => setConfirmar(e.target.value)}
+                  autoComplete="new-password"
+                  style={{ paddingLeft: 42 }}
+                />
+              </div>
             </div>
 
             {error && (
@@ -154,17 +178,16 @@ export default function Login() {
                     borderTopColor: '#94A3B8',
                     animation: 'spin 0.8s linear infinite',
                   }} />
-                  Entrando...
+                  Guardando...
                 </>
-              ) : '🚀 Iniciar sesión'}
+              ) : '✅ Cambiar contraseña'}
             </button>
           </form>
         </div>
 
         <p style={{ textAlign: 'center', marginTop: 20, color: '#94A3B8', fontSize: 14 }}>
-          ¿No tienes cuenta?{' '}
-          <Link to="/registro" style={{ color: '#2E70FF', fontWeight: 700, textDecoration: 'none' }}>
-            Regístrate gratis →
+          <Link to="/login" style={{ color: '#2E70FF', fontWeight: 700, textDecoration: 'none' }}>
+            ← Volver al inicio de sesión
           </Link>
         </p>
       </div>

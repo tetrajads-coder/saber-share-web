@@ -45,12 +45,12 @@ export default function Chat() {
     <div style={{
       position: 'fixed', top: 0, left: 0, right: 0, bottom: NAVBAR_H,
       display: 'flex', flexDirection: 'column',
-      background: 'var(--bg-primary)',
+      background: '#FFFFFF',
     }}>
-      {/* Header con gradiente */}
+      {/* Header */}
       <div style={{
-        background: 'linear-gradient(135deg, #0f1629 0%, #111116 100%)',
-        borderBottom: '1px solid var(--border)',
+        background: '#F1F5FF',
+        borderBottom: '1px solid #E2E8F0',
         padding: '14px 16px',
         display: 'flex', alignItems: 'center', gap: 12,
         flexShrink: 0, position: 'relative', overflow: 'hidden',
@@ -58,30 +58,31 @@ export default function Chat() {
         <div style={{
           position: 'absolute', top: -30, right: -30,
           width: 120, height: 120, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(46,112,255,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(46,112,255,0.07) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
         <button onClick={() => navigate(-1)}
           style={{
             width: 36, height: 36, borderRadius: '50%',
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid var(--border)',
-            color: 'var(--text-primary)', fontSize: 16,
+            background: '#FFFFFF',
+            border: '1px solid #E2E8F0',
+            color: '#0F172A', fontSize: 16,
             cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 1px 4px rgba(15,23,42,0.06)',
           }}>←</button>
         <div style={{
           width: 40, height: 40, borderRadius: '50%',
-          background: 'linear-gradient(135deg, var(--accent-blue), #5b9aff)',
+          background: 'linear-gradient(135deg, #2E70FF, #5b9aff)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontWeight: 800, color: '#fff', fontSize: 17,
           fontFamily: 'Syne, sans-serif',
-          boxShadow: '0 0 16px rgba(46,112,255,0.4)',
+          boxShadow: '0 4px 12px rgba(46,112,255,0.2)',
         }}>{nombre.charAt(0).toUpperCase()}</div>
         <div>
-          <p style={{ fontWeight: 700, fontSize: 15, fontFamily: 'Syne, sans-serif' }}>{nombre}</p>
+          <p style={{ fontWeight: 700, fontSize: 15, fontFamily: 'Syne, sans-serif', color: '#0F172A' }}>{nombre}</p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
-            <p style={{ color: 'var(--accent)', fontSize: 11, fontWeight: 500 }}>En línea</p>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#65A30D' }} />
+            <p style={{ color: '#65A30D', fontSize: 11, fontWeight: 500 }}>En línea</p>
           </div>
         </div>
       </div>
@@ -91,7 +92,7 @@ export default function Chat() {
         flex: 1, overflowY: 'auto',
         padding: '20px 16px',
         display: 'flex', flexDirection: 'column', gap: 12,
-        background: 'linear-gradient(180deg, #0d0d14 0%, var(--bg-primary) 100%)',
+        background: '#FFFFFF',
       }}>
         {mensajes.length === 0 ? (
           <div style={{
@@ -99,7 +100,7 @@ export default function Chat() {
             alignItems: 'center', justifyContent: 'center', gap: 12, opacity: 0.5,
           }}>
             <div style={{ fontSize: 48 }}>💬</div>
-            <p style={{ color: 'var(--text-tertiary)', fontSize: 14 }}>Inicia la conversación</p>
+            <p style={{ color: '#94A3B8', fontSize: 14 }}>Inicia la conversación</p>
           </div>
         ) : mensajes.map((m, i) => {
           const esMio = m.emisorId === usuario.id
@@ -112,7 +113,7 @@ export default function Chat() {
               {!esMio && (
                 <div style={{
                   width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-                  background: 'linear-gradient(135deg, var(--accent-blue), #5b9aff)',
+                  background: 'linear-gradient(135deg, #2E70FF, #5b9aff)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 11, fontWeight: 700, color: '#fff',
                 }}>{nombre.charAt(0).toUpperCase()}</div>
@@ -124,17 +125,17 @@ export default function Chat() {
                 borderBottomRightRadius: esMio ? 4 : 18,
                 borderBottomLeftRadius:  esMio ? 18 : 4,
                 background: esMio
-                  ? 'linear-gradient(135deg, var(--accent) 0%, #84cc16 100%)'
-                  : 'var(--bg-card)',
-                color: esMio ? '#0a0a0d' : 'var(--text-primary)',
+                  ? 'linear-gradient(135deg, #2E70FF 0%, #5b9aff 100%)'
+                  : '#FFFFFF',
+                color: esMio ? '#fff' : '#0F172A',
                 fontSize: 14, lineHeight: 1.5,
                 boxShadow: esMio
-                  ? '0 4px 16px rgba(163,230,53,0.25)'
-                  : '0 2px 8px rgba(0,0,0,0.3)',
-                border: esMio ? 'none' : '1px solid var(--border)',
+                  ? '0 4px 16px rgba(46,112,255,0.2)'
+                  : '0 2px 8px rgba(15,23,42,0.06)',
+                border: esMio ? 'none' : '1px solid #E2E8F0',
               }}>
                 <p style={{ fontWeight: esMio ? 500 : 400 }}>{m.contenido}</p>
-                <p style={{ fontSize: 10, opacity: 0.55, marginTop: 4, textAlign: 'right' }}>
+                <p style={{ fontSize: 10, opacity: 0.6, marginTop: 4, textAlign: 'right' }}>
                   {m.fechaEnvio
                     ? new Date(m.fechaEnvio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     : ''}
@@ -148,8 +149,8 @@ export default function Chat() {
 
       {/* Input */}
       <div style={{
-        background: 'var(--bg-secondary)',
-        borderTop: '1px solid var(--border)',
+        background: '#F8FAFC',
+        borderTop: '1px solid #E2E8F0',
         padding: '12px 16px',
         display: 'flex', gap: 10, alignItems: 'flex-end',
         flexShrink: 0,
@@ -163,19 +164,18 @@ export default function Chat() {
           style={{
             flex: 1, resize: 'none', borderRadius: 20,
             padding: '10px 16px', maxHeight: 100,
-            background: 'var(--bg-card)',
           }}
         />
         <button onClick={handleEnviar} disabled={loading || !texto.trim()}
           style={{
             width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
             background: texto.trim()
-              ? 'linear-gradient(135deg, var(--accent) 0%, #84cc16 100%)'
-              : 'var(--bg-card)',
-            color: texto.trim() ? '#0a0a0d' : 'var(--text-tertiary)',
+              ? 'linear-gradient(135deg, #2E70FF 0%, #5b9aff 100%)'
+              : '#F1F5F9',
+            color: texto.trim() ? '#fff' : '#94A3B8',
             border: 'none', cursor: texto.trim() ? 'pointer' : 'default',
             fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: texto.trim() ? '0 4px 12px rgba(163,230,53,0.3)' : 'none',
+            boxShadow: texto.trim() ? '0 4px 12px rgba(46,112,255,0.25)' : 'none',
             transition: 'all 0.2s',
           }}>➤</button>
       </div>
