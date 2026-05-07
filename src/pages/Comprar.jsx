@@ -3,8 +3,8 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { iniciarPago, confirmarPago } from '../api/api'
 
-const RETURN_URL = 'http://localhost:5173/paypal-return'
-const CANCEL_URL = 'http://localhost:5173/'
+const RETURN_URL = 'https://saber-share-webb.vercel.app/paypal-return'
+const CANCEL_URL = 'https://saber-share-webb.vercel.app/'
 
 export default function Comprar() {
   const { tipo, id } = useParams()
