@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://sabersharebda-production.up.railway.app/api/:path*" },
     { "source": "/:path*", "destination": "/index.html" }
   ]
 }
