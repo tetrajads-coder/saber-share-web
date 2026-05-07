@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { recuperarPassword } from '../api/api'
+import logo from '../assets/logo_sabershare.png'
 
 export default function ForgotPassword() {
   const [correo, setCorreo]   = useState('')
@@ -45,7 +46,7 @@ export default function ForgotPassword() {
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <img
-            src="/src/assets/logo_sabershare.png"
+            src={logo}
             alt="SaberShare"
             style={{ width: '140px', marginBottom: '24px' }}
           />

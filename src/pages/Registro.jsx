@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { registrarUsuario } from '../api/api'
+import logo from '../assets/logo_sabershare.png'
 
 export default function Registro() {
   const [form, setForm]       = useState({ user:'', nombre:'', apellido:'', correo:'', telefono:'', password:'' })
@@ -47,7 +48,7 @@ export default function Registro() {
         {/* Logo */}
         <div style={{ textAlign:'center', marginBottom:32 }}>
           <img
-            src="/src/assets/logo_sabershare.png"
+            src={logo}
             alt="SaberShare"
             style={{ width: '140px', marginBottom: '24px' }}
           />

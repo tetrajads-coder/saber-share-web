@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import { resetPassword } from '../api/api'
+import logo from '../assets/logo_sabershare.png'
 
 export default function ResetPassword() {
   const [searchParams]          = useSearchParams()
@@ -80,7 +81,7 @@ export default function ResetPassword() {
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <img
-            src="/src/assets/logo_sabershare.png"
+            src={logo}
             alt="SaberShare"
             style={{ width: '140px', marginBottom: '24px' }}
           />
